@@ -4,7 +4,7 @@
 
 下图说明了一个带有图片附件的故事是如何工作的。在这个例子中，John创建了故事，然后他的朋友们赞了这个故事并且评论了这个故事。左手边的社交图谱描述了Facebook的后端是如何表示这些关系的。当Android应用请求这个故事，会返回一个包含了角色、反馈和附件等信息的树形结构。
 
-![Alt Image Text](/var/folders/dw/3s3v8bmx2j55fx55m401tf35qhg4gd/T/com.evernote.Evernote/WebKitDnD.XLQwtT/25106E63-D1D5-4FB9-B706-374BEB6C2B7A.png "Optional Title") 
+![Alt Image Text](https://github.com/songzeyang99/blog/blob/master/pic/fb1 "Optional Title") 
 
 我们处理的一个关键问题是在应用中如何展示和存储这些数据。如果将这些数据规范化的存储在SQLite数据库中的各个表中这是不现实的，因为我们从后端有太多不同的方式查询节点和关联的属性结构。所以最终我们的想法就是直接将整个属性结构存储下来。其中一种方案是用JSON来存储树形结构，这就要求我们在数据填充UI页面之前将JSON解析、变换成Java对象，另外，解析JSON也要消耗一定时间。我们使用过Jackson JSON解析器来解析JSON但是发现了几个问题：
 
@@ -31,7 +31,7 @@ class Person {
 ```
 
 
-![Alt Image Text](/var/folders/dw/3s3v8bmx2j55fx55m401tf35qhg4gd/T/com.evernote.Evernote/WebKitDnD.SAJfrG/6230898E-792C-4351-9103-5A465589C748.png "Optional Title") 
+![Alt Image Text](https://github.com/songzeyang99/blog/blob/master/pic/fb2 "Optional Title") 
 
 
 
@@ -68,7 +68,7 @@ String maryName = FlatBufferHelper.getString(flatBuffer,
 
 最后，我们将所有的变种打包到变种数据中去。变种数据由2部分构成：变种索引和变种数据。变种索引记录了一种映射关系，键是原FlatBuffers中索引，值是修改数据内容的索引。变种数据存储着和FlatBuffer一样格式的修改数据的内容。
 
-![Alt Image Text](/var/folders/dw/3s3v8bmx2j55fx55m401tf35qhg4gd/T/com.evernote.Evernote/WebKitDnD.XI5uBq/B8264087-00C8-46C3-A938-9ADB2FBBE79A.png "Optional Title")
+![Alt Image Text](https://github.com/songzeyang99/blog/blob/master/pic/fb3 "Optional Title")
 
 
 当查询FlatBuffers中的一段数据时，我们可以找出数据的绝对位置，然后在变种数据中查看这段数据是否有修改，如果有修改则将修改的数据返回，否则的话就返回原始数据。
@@ -80,7 +80,7 @@ FlatBuffers不仅仅可以用于存储模型还可以应用在网络、内存模
 
 之前我们用JSON作为存储数据的结构时，我们需要添加内存缓存来解决反序列化所带来的体验问题，并且最终我们还要添加应用逻辑、网络逻辑在UI层和存储层之间。类似这样
 
-![Alt Image Text](/var/folders/dw/3s3v8bmx2j55fx55m401tf35qhg4gd/T/com.evernote.Evernote/WebKitDnD.Cvxff0/1AC8CAA7-E765-4B67-8C00-9D1818815320.png "Optional Title")
+![Alt Image Text](https://github.com/songzeyang99/blog/blob/master/pic/fb4 "Optional Title")
 
 
 
@@ -93,7 +93,7 @@ FlatBuffers不仅仅可以用于存储模型还可以应用在网络、内存模
 Flat模型出现后，UI层和存储层就可以很轻松的交互了，如下结构所示。
 
 
-![Alt Image Text](/var/folders/dw/3s3v8bmx2j55fx55m401tf35qhg4gd/T/com.evernote.Evernote/WebKitDnD.nUTYWi/65816447-4E0E-4BC5-BA51-F6F8B821B1A4.png "Optional Title")
+![Alt Image Text](https://github.com/songzeyang99/blog/blob/master/pic/fb5 "Optional Title")
 
 
 * UI构建在存储层的上层，采用Android标准cursor进行交互。这种方式在当下众多app中是很流行的，提升UI响应。
